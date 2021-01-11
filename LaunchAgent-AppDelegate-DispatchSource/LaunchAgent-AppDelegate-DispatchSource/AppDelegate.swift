@@ -158,19 +158,30 @@ class AppDelegate: NSObject {
         let logDirectory = directory.appendingPathComponent(AppDelegate.appName)
         let filename = logDirectory.appendingPathComponent("\(AppDelegate.appName)-\(dateTimeFileStr)-Session.txt")
         
+        dateFormatter.dateFormat = "HH.mm:ss.SSS'Z'"
+        let currentTime = dateFormatter.string(from: currentDateTime)
+        
         var logStr =
             """
+                \n
                 ----------------------------------------------------------------
                 Launch Agent log
                 ----------------------------------------------------------------
 
                 Logout/Shutdown/Restart event at: \(dateTimeStr)
+                                                  \(currentTime)
                 Event type:                       \(getTerminationReason())\n
             """
         if let message = message {
             logStr.append(message)
         }
         logStr.append(checkNetworkReachability())
+
+        guard let logData = logStr.data(using: String.Encoding.utf8) else {
+            return
+        }
+        
+        Logger.writeToFile(logData, to: filename)
         
 //        do {
 //            try logStr.write(to: filename, atomically: true, encoding: String.Encoding.utf8)
@@ -181,12 +192,6 @@ class AppDelegate: NSObject {
 //            NSLog("\(AppDelegate.appName) -> Failed to write to file")
 //            handleQuitEvent("handleQuitEvent() -> Failed to write to file")
 //        }
-        
-        guard let logData = logStr.data(using: String.Encoding.utf8) else {
-            return
-        }
-        
-        Logger.writeToFile(logData, to: filename)
     }
     
     private func makeSignalMessage(for signalName: String) -> String {

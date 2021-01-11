@@ -138,7 +138,7 @@ class AppDelegate: NSObject {
     
     // MARK: Log
     
-    private func handleQuitEvent() {
+    private func handleQuitEvent(_ message: String? = nil)  {
         let directory = getDownloadDirectory().appendingPathComponent(AppDelegate.appName)
         
         let saveDirectoryOk = makeSaveToDirectory(for: directory)
@@ -157,32 +157,53 @@ class AppDelegate: NSObject {
             .replacingOccurrences(of: " ", with: "_T")
             .replacingOccurrences(of: ":", with: "-")
         
-        let filename = directory.appendingPathComponent("LaunchAgent-\(dateTimeFileStr).txt")
+        let filename = directory.appendingPathComponent("\(AppDelegate.appName)-\(dateTimeFileStr).txt")
+        
+        dateFormatter.dateFormat = "HH.mm:ss.SSS'Z'"
+        let currentTime = dateFormatter.string(from: currentDateTime)
         
         var logStr =
             """
+                \n
                 ----------------------------------------------------------------
                 Launch Agent log
                 ----------------------------------------------------------------
 
                 Logout/Shutdown/Restart event at: \(dateTimeStr)
+                                                  \(currentTime)
                 Event type:                       \(getTerminationReason())\n
             """
+        if let message = message {
+            logStr.append(message)
+        }
         logStr.append(checkNetworkReachability())
+
+        guard let logData = logStr.data(using: String.Encoding.utf8) else {
+            return
+        }
         
-        do {
-            try logStr.write(to: filename, atomically: true, encoding: String.Encoding.utf8)
-        }
-        catch {
-            // failed to write file – bad permissions, bad filename, missing permissions, or more likely it can't be converted to the encoding
-        }
+        Logger.writeToFile(logData, to: filename)
+        
+//        do {
+//            try logStr.write(to: filename, atomically: true, encoding: String.Encoding.utf8)
+//        }
+//        catch {
+//            // Failed to write file – bad permissions, bad filename, missing permissions, or more likely it can't be converted to the encoding
+//
+//            NSLog("\(AppDelegate.appName) -> Failed to write to file")
+//            Logger.logToFile("handleQuitEvent() -> Failed to write to file")
+//        }
     }
     
     private func handleQuitEventAsync() {
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
             [weak self] in
             
-            self?.handleQuitEvent()
+            let quitEventMessage =
+                """
+                    Quit reason:                      handleQuitEventAsync()\n
+                """
+            self?.handleQuitEvent(quitEventMessage)
             
             // Continue Poweroff/Restart/Logout
             NSApplication.shared.reply(toApplicationShouldTerminate: true)
@@ -198,7 +219,11 @@ class AppDelegate: NSObject {
     
     @objc
     private func handleWillPowerOff(_ notification: Notification) {
-        handleQuitEvent()
+        let quitEventMessage =
+            """
+                Quit reason:                      handleQuitEvent()\n
+            """
+        handleQuitEvent(quitEventMessage)
     }
     
 }
@@ -208,12 +233,21 @@ extension AppDelegate: NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
         
+        Logger.logToFile("applicationDidFinishLaunching()")
+        
         setupStatusBarIcon()
         setupWorkspaceNotifications()
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
+        
+        let quitEventMessage =
+            """
+                Quit reason:                      applicationWillTerminate()\n
+            """
+        handleQuitEvent(quitEventMessage)
+        Logger.logToFile("applicationWillTerminate()")
     }
     
 }

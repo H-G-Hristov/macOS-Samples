@@ -8,6 +8,9 @@
 import Cocoa
 
 func main() -> Int32 {
+    Logger.logToFile("----------------------------------------------------")
+    Logger.logToFile("main() -> Application start")
+    
     // Create a strong reference
     let delegate = AppDelegate()
     NSApplication.shared.delegate = delegate
