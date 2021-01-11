@@ -134,7 +134,7 @@ class AppDelegate: NSObject {
         return FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask).first
     }
     
-    private func handleQuitEvent(_ message: String?) {
+    private func handleQuitEvent(_ message: String? = nil) {
         guard let directory = Directory.getDownloadDirectory() else {
             return
         }
@@ -172,12 +172,21 @@ class AppDelegate: NSObject {
         }
         logStr.append(checkNetworkReachability())
         
-        do {
-            try logStr.write(to: filename, atomically: true, encoding: String.Encoding.utf8)
+//        do {
+//            try logStr.write(to: filename, atomically: true, encoding: String.Encoding.utf8)
+//        }
+//        catch {
+//            // failed to write file – bad permissions, bad filename, missing permissions, or more likely it can't be converted to the encoding
+//
+//            NSLog("\(AppDelegate.appName) -> Failed to write to file")
+//            handleQuitEvent("handleQuitEvent() -> Failed to write to file")
+//        }
+        
+        guard let logData = logStr.data(using: String.Encoding.utf8) else {
+            return
         }
-        catch {
-            // failed to write file – bad permissions, bad filename, missing permissions, or more likely it can't be converted to the encoding
-        }
+        
+        Logger.writeToFile(logData, to: filename)
     }
     
     private func makeSignalMessage(for signalName: String) -> String {
@@ -232,7 +241,7 @@ extension AppDelegate: NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
         
-        Logger.logToFile("applicationDidFinishLaunching")
+        Logger.logToFile("applicationDidFinishLaunching()")
         
         setupEventHandlers()
         setupStatusBarIcon()
@@ -246,7 +255,7 @@ extension AppDelegate: NSApplicationDelegate {
                 Quit reason:                      applicationWillTerminate()\n
             """
         handleQuitEvent(quitEventMessage)
-        Logger.logToFile("applicationWillTerminate")
+        Logger.logToFile("applicationWillTerminate()")
     }
     
 }

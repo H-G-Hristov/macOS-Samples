@@ -49,6 +49,10 @@ struct Logger {
             return
         }
         
+        writeToFile(logData, to: logFile)
+    }
+    
+    static func writeToFile(_ logData: Data, to logFile: URL) {
         if FileManager.default.fileExists(atPath: logFile.path) {
             // Append info to existing log file
             if let fileHandle = try? FileHandle(forWritingTo: logFile) {
@@ -57,14 +61,14 @@ struct Logger {
                 fileHandle.closeFile()
             }
             else {
-                NSLog("Failed to write log file: \(logFile)")
+                NSLog("Failed to write to file: \(logFile)")
             }
         } else {
             do {
                 // Create new log file
                 try logData.write(to: logFile, options: .atomicWrite)
             } catch (let error) {
-                NSLog("Failed to create log file: \(logFile) with error: \(error)")
+                NSLog("Failed to create file: \(logFile) with error: \(error)")
             }
         }
     }
