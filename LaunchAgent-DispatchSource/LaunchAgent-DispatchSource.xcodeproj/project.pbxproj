@@ -24,7 +24,6 @@
 		3826E6D825ACAE0300B985BC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3826E6DD25ACAE0300B985BC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3826E6F725ACAE5500B985BC /* LaunchAgent_DispatchSource.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LaunchAgent_DispatchSource.entitlements; sourceTree = "<group>"; };
-		3826E70525ACAFCE00B985BC /* LaunchAgent-DispatchSource-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LaunchAgent-DispatchSource-Bridging-Header.h"; sourceTree = "<group>"; };
 		3826E71F25ACB28C00B985BC /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		3826E72025ACB28C00B985BC /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		3826E72125ACB28C00B985BC /* Directory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Directory.swift; sourceTree = "<group>"; };
@@ -72,7 +71,6 @@
 				3826E71F25ACB28C00B985BC /* main.swift */,
 				3826E6D825ACAE0300B985BC /* Assets.xcassets */,
 				3826E6DD25ACAE0300B985BC /* Info.plist */,
-				3826E70525ACAFCE00B985BC /* LaunchAgent-DispatchSource-Bridging-Header.h */,
 				3826E6F725ACAE5500B985BC /* LaunchAgent_DispatchSource.entitlements */,
 			);
 			path = "LaunchAgent-DispatchSource";
@@ -311,7 +309,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_MODULES = NO;
 				CODE_SIGN_ENTITLEMENTS = "LaunchAgent-DispatchSource/LaunchAgent_DispatchSource.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -324,7 +322,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.roccoormm.LaunchAgent-DispatchSource";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "LaunchAgent-DispatchSource/LaunchAgent-DispatchSource-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
@@ -335,7 +333,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_MODULES = NO;
 				CODE_SIGN_ENTITLEMENTS = "LaunchAgent-DispatchSource/LaunchAgent_DispatchSource.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -348,7 +346,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.roccoormm.LaunchAgent-DispatchSource";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "LaunchAgent-DispatchSource/LaunchAgent-DispatchSource-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
