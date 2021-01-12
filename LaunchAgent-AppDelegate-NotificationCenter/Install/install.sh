@@ -13,7 +13,7 @@ source "Common/user.sh" # Include user settings
 # Constants
 
 agentPList="$agentName.app.plist"
-sourceFile="Resources/$agentPList"
+sourceFile="Resources/template.app.plist"
 installDir="$HOME/Library/LaunchAgents/"
 
 # Functions
@@ -31,7 +31,7 @@ install() {
         echo "Installing: $agentPList"
         echo "  to: $installDir"
         plistFile="$installDir/$agentPList"
-        sed "s|\$HOME|$HOME|g" $sourceFile | sed "s|\$APP_NAME|$baseName|g" | sed "s|\$APP_BUILD_STR|$appBuildStr|g" > $plistFile
+        sed "s|\$AGENT_NAME|$agentName|g" $sourceFile | sed "s|\$HOME|$HOME|g" | sed "s|\$APP_NAME|$baseName|g" | sed "s|\$APP_BUILD_STR|$appBuildStr|g" > $plistFile
     fi
 }
 

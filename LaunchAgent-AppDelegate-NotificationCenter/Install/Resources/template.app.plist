@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Label</key>
-	<string>com.roccoormm.LaunchAgent-AppDelegate-NotificationCenter</string>
+	<string>$AGENT_NAME</string>
 	<key>ProgramArguments</key>
 	<array>
 		<string>$HOME/Library/Developer/Xcode/DerivedData/$APP_NAME-$APP_BUILD_STR/Build/Products/Debug/$APP_NAME.app/Contents/MacOS/$APP_NAME</string>
@@ -16,7 +16,5 @@
 	<true/>
 	<key>RunAtLoad</key>
 	<true/>
-	<key>ExitTimeOut</key>
-	<integer>1</integer>
 </dict>
 </plist>
