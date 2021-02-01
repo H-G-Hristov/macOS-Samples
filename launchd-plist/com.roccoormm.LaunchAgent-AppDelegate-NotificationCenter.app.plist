@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>com.roccoormm.LaunchAgent-AppDelegate-NotificationCenter</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/Users/MacUser/Library/Developer/Xcode/DerivedData/LaunchAgent-AppDelegate-NotificationCenter-gifswzcgofuxoxflftowdrdulrge/Build/Products/Debug/LaunchAgent-AppDelegate-NotificationCenter.app/Contents/MacOS/LaunchAgent-AppDelegate-NotificationCenter</string>
+	</array>
+	<key>Disabled</key>
+	<false/>
+	<key>LimitLoadToSessionType</key>
+	<string>Aqua</string>
+	<key>KeepAlive</key>
+	<true/>
+	<key>RunAtLoad</key>
+	<true/>
+	<key>ExitTimeOut</key>
+	<integer>60</integer>
+</dict>
+</plist>

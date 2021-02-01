@@ -1,5 +1,11 @@
 ## LaunchAgents
 
+On `launchd` and `launchdctl`:</br>
+https://www.launchd.info
+
+On `launchd.plist`:</br>
+https://www.manpagez.com/man/5/launchd.plist/
+
 ### LaunchAgent-AppDelegate-DispatchSource
 
 ```Swift
@@ -64,23 +70,36 @@ func main() -> Int32 {
 }
 ```
 
-## LLDB process handling
+## Additional Information
+
+### LLDB process handling
 
 To change how LLDB handles signals:
 
-```
+```sh
 process handle <SIGNALNAME> [ --pass <true|false|1|0> ] [ --stop <true|false|1|0> ] [ --notify <true|false|1|0> ]
 ```
 
 Sample:
 
-```
+```sh
 process handle SIGTERM --stop false --pass true
 ```
 
-## *.plist
+### Launch agent *.plist (App.plist)
+
+```xml
+LSUIElement <boolean>
+```
+
+A Boolean value indicating whether the app is an agent app that runs in the background and doesn't appear in the Dock.
+### Launch agent *.plist (launchd.plist)
 
 ```
 ExitTimeOut <integer>
 ```
 The amount of time launchd waits before sending a SIGKILL signal. The default value is 20 seconds. The value zero is interpreted as infinity.
+
+### Notes
+
+Each sample has a directory `Install` which contains helper shell scripts to install (generate `launchd.plist`) and run the launch agent.
